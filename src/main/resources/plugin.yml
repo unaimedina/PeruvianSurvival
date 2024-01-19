@@ -1,0 +1,22 @@
+name: Hope
+author: Alejandro & Unai
+version: 7.77-BETA
+main: gg.voltic.hope.Hope
+api-version: 1.13
+commands:
+  tp:
+    aliases: [ tpaccept, tpdeny ]
+  suicide:
+  msg:
+    aliases: [ tell, message ]
+  reply:
+    aliases: [ r ]
+  carry:
+    aliases: [ llevar ]
+  home:
+  sethome:
+  hope:
+  playtime:
+    aliases: [ pt, tiempo, tiempojuego ]
+  mlg:
+  nick:
