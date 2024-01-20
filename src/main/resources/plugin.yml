@@ -6,7 +6,6 @@ api-version: 1.13
 commands:
   tp:
     aliases: [ tpaccept, tpdeny ]
-  suicide:
   msg:
     aliases: [ tell, message ]
   reply:
@@ -20,3 +19,4 @@ commands:
     aliases: [ pt, tiempo, tiempojuego ]
   mlg:
   nick:
+  modules:

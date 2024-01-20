@@ -1,11 +1,9 @@
 package gg.voltic.hope.scenario;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import gg.voltic.hope.Hope;
 import lombok.Getter;
 import org.reflections.Reflections;
 
@@ -21,7 +19,7 @@ public class ScenarioManager {
             try {
                 Scenario scenario = clazz.getConstructor().newInstance();
                 this.scenarios.add(scenario);
-                if (!scenario.isEnabled()) {
+                if (!scenario.isEnabled() && Hope.getInstance().getModulesFile().getConfig().getList("MODULES").contains(scenario.getName()) && !Hope.getInstance().getModulesFile().getConfig().getList("MODULES").isEmpty()) {
                     scenario.enable();
                 }
             } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException |

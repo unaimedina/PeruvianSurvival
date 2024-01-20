@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
@@ -15,12 +16,15 @@ import org.bukkit.event.Listener;
 public abstract class Scenario implements Listener {
    private final String name;
    private final String description;
+   private final Material material;
+
    private boolean enabled;
    private FileConfig config;
 
-   public Scenario(String name, String description, FileConfig config) {
+   public Scenario(String name, String description, FileConfig config, Material material) {
       this.name = name;
       this.description = description;
+      this.material = material;
       this.enabled = false;
       this.config = config;
    }

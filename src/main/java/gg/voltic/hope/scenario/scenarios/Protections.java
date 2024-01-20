@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -47,7 +48,7 @@ public class Protections extends Scenario {
    private static final HashMap<Block, Protection> protectionsBySign = new HashMap<>();
 
    public Protections() {
-      super("Protections", "Integrates a protection system with a sign to the server.", new FileConfig(Hope.getInstance(), "protected.yml"));
+      super("Protections", "Integrates a protection system with a sign to the server.", new FileConfig(Hope.getInstance(), "protected.yml"), Material.TNT);
       ConfigCursor cursor = new ConfigCursor(this.getConfig(), "");
 
       for(String key : cursor.getKeys("blocks")) {

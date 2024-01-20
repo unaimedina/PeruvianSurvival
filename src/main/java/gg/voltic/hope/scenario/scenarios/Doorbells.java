@@ -1,4 +1,4 @@
-package gg.voltic.hope.scenario.disabledScenarios;
+package gg.voltic.hope.scenario.scenarios;
 
 import com.destroystokyo.paper.event.block.BlockDestroyEvent;
 import gg.voltic.hope.Hope;
@@ -30,7 +30,7 @@ public class Doorbells extends Scenario {
    private final HashMap<Location, Cooldown> cooldowns = new HashMap<>();
 
    public Doorbells() {
-      super("Doorbells", "Integrates a doorbell system.", new FileConfig(Hope.getInstance(), "doorbells.yml"));
+      super("Doorbells", "Integrates a doorbell system.", new FileConfig(Hope.getInstance(), "doorbells.yml"), Material.BELL);
       this.doorbells.add(Material.STONE_BUTTON);
       this.doorbells.add(Material.OAK_BUTTON);
       this.doorbells.add(Material.BIRCH_BUTTON);

@@ -1,4 +1,4 @@
-package gg.voltic.hope.scenario.disabledScenarios;
+package gg.voltic.hope.scenario.scenarios;
 
 import gg.voltic.hope.Hope;
 import gg.voltic.hope.scenario.Scenario;
@@ -49,7 +49,7 @@ public class Mines extends Scenario {
       .get();
 
    public Mines() {
-      super("Mines", "Integrates a mine system with remote detonators and more", new FileConfig(Hope.getInstance(), "mines.yml"));
+      super("Mines", "Integrates a mine system with remote detonators and more", new FileConfig(Hope.getInstance(), "mines.yml"), Material.END_CRYSTAL);
       this.minesMaterials.add(Material.DIRT);
       this.minesMaterials.add(Material.COBBLESTONE);
       this.minesMaterials.add(Material.STONE);

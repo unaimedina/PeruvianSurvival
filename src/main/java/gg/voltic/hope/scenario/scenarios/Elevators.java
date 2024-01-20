@@ -4,6 +4,7 @@ import gg.voltic.hope.scenario.Scenario;
 import gg.voltic.hope.utils.Common;
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class Elevators extends Scenario {
    public Elevators() {
-      super("Elevators", "Integrates an elevator system using signs.", null);
+      super("Elevators", "Integrates an elevator system using signs.", null, Material.BAMBOO_SIGN);
    }
 
    @EventHandler

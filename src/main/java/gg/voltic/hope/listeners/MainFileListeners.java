@@ -2,18 +2,17 @@ package gg.voltic.hope.listeners;
 
 import gg.voltic.hope.Hope;
 import gg.voltic.hope.utils.Common;
-import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -23,7 +22,6 @@ public class MainFileListeners implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        Permission permission = Hope.getInstance().getPermission();
 
         if (!player.hasPlayedBefore()) {
             int random = (int) (Math.random() * 40.0) + 16;
@@ -31,7 +29,9 @@ public class MainFileListeners implements Listener {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2[>] &a¡Bienvenido al survival! &7Has recibido &e" + random + " &7filetes."));
         }
 
-        // player.setPlayerListName(ChatColor.translateAlternateColorCodes('&', permission.getPrimaryGroup(player) + player.getName()));
+        String prefix = Hope.getInstance().getChat().getGroupPrefix(player.getWorld(), Hope.getInstance().getPermission().getPrimaryGroup(player)) + player.getName();
+
+        player.setPlayerListName(ChatColor.translateAlternateColorCodes('&', prefix + player.getName()));
         event.setJoinMessage(ChatColor.translateAlternateColorCodes('&', "&a[+] &7El jugador &a" + player.getName() + " &7ha entrado al survival."));
     }
 
@@ -69,10 +69,30 @@ public class MainFileListeners implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        Permission permission = Hope.getInstance().getPermission();
-        String formatStr = permission.getPrimaryGroup(player) + player.getName() + "&7: &f";
+        String prefix = Hope.getInstance().getChat().getGroupPrefix(player.getWorld(), Hope.getInstance().getPermission().getPrimaryGroup(player)) + player.getName();
+        String formatStr = prefix + player.getName() + "&7: &f";
 
-        // player.setPlayerListName(ChatColor.translateAlternateColorCodes('&', permission.getPrimaryGroup(player) + player.getName()));
-        // event.setFormat(ChatColor.translateAlternateColorCodes('&', formatStr) + event.getMessage());
+        player.setPlayerListName(ChatColor.translateAlternateColorCodes('&', prefix + player.getName()));
+        event.setFormat(ChatColor.translateAlternateColorCodes('&', formatStr) + event.getMessage());
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e) {
+        if (e.getAction() != Action.RIGHT_CLICK_BLOCK || e.getPlayer().isSneaking()) {
+            return;
+        }
+
+        Block clickedBlock = e.getClickedBlock();
+        if (clickedBlock == null || !isSignBlock(clickedBlock.getType())) {
+            return;
+        }
+
+        e.setCancelled(true);
+
+    }
+
+
+    private boolean isSignBlock(Material material) {
+        return material.name().endsWith("_SIGN");
     }
 }

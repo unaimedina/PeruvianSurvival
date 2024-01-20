@@ -60,7 +60,7 @@ public class Graves extends Scenario {
    private final Map<String, InventorySave> pendingInventories = new HashMap<>();
 
    public Graves() {
-      super("Graves", "When you die, you drop your items and your inventory is saved to a chest.", new FileConfig(Hope.getInstance(), "graves.yml"));
+      super("Graves", "When you die, you drop your items and your inventory is saved to a chest.", new FileConfig(Hope.getInstance(), "graves.yml"), Material.CHEST);
       this.cursor = new ConfigCursor(this.getConfig(), "");
       this.cursor.getStringList("graves").forEach(string -> {
          if (string.contains(";")) {

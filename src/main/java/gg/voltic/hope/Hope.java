@@ -1,8 +1,10 @@
 package gg.voltic.hope;
 
 import gg.voltic.hope.commands.*;
+import gg.voltic.hope.commands.admin.ModuleManagerCommand;
 import gg.voltic.hope.listeners.MainFileListeners;
 import gg.voltic.hope.scenario.ScenarioManager;
+import gg.voltic.hope.scenario.ScenarioMenu;
 import gg.voltic.hope.utils.ConfigCursor;
 import gg.voltic.hope.utils.FileConfig;
 import gg.voltic.hope.utils.LocationUtil;
@@ -37,27 +39,29 @@ public class Hope extends JavaPlugin implements Listener {
     private final List<String> commands = new ArrayList<>();
 
     private FileConfig homesFile;
-    private FileConfig chunksFile;
+    private FileConfig modulesFile;
+
     private ScenarioManager scenarioManager;
 
     private Connection connection;
 
     private Permission permission;
+
     private Chat chat;
 
     public void onEnable() {
         instance = this;
 
-        this.scenarioManager = new ScenarioManager();
-
         this.homesFile = new FileConfig(this, "homes.yml");
-        this.chunksFile = new FileConfig(this, "chunks.yml");
+        this.modulesFile = new FileConfig(this, "modules.yml");
+
+        this.scenarioManager = new ScenarioManager();
 
         this.registerListeners();
         this.loadCommands();
         this.loadRunnables();
-        this.setupPermissions();
         this.setupChat();
+        this.setupPermissions();
 
         this.connection = new MySQLConnector().getConnection();
     }
@@ -73,7 +77,6 @@ public class Hope extends JavaPlugin implements Listener {
         this.loadDisabledCommands();
 
         Objects.requireNonNull(this.getCommand("tp")).setExecutor(new TeleportCommand());
-        Objects.requireNonNull(this.getCommand("suicide")).setExecutor(new SuicideCommand());
         Objects.requireNonNull(this.getCommand("msg")).setExecutor(new PrivateMessageCommand());
         Objects.requireNonNull(this.getCommand("reply")).setExecutor(new ReplyCommand());
         Objects.requireNonNull(this.getCommand("carry")).setExecutor(new CarryCommand());
@@ -83,6 +86,7 @@ public class Hope extends JavaPlugin implements Listener {
         Objects.requireNonNull(this.getCommand("playtime")).setExecutor(new PlayTimeCommand());
         Objects.requireNonNull(this.getCommand("mlg")).setExecutor(new MlgCommand());
         Objects.requireNonNull(this.getCommand("nick")).setExecutor(new ChangeNameCommands());
+        Objects.requireNonNull(this.getCommand("modules")).setExecutor(new ModuleManagerCommand());
     }
 
     private void loadDisabledCommands() {
@@ -135,20 +139,15 @@ public class Hope extends JavaPlugin implements Listener {
                 }, 0L, 20L);
             }
         }).runTaskTimer(this, 432000L, 432000L);
+    }
 
-
-        ConfigCursor chunks = new ConfigCursor(this.chunksFile, "");
-        chunks.getStringList("chunks").forEach(chunk -> LocationUtil.deserialize(chunk).getChunk().load());
+    public void setupChat() {
+        RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
+        this.chat = rsp.getProvider();
     }
 
     public void setupPermissions() {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-        permission = rsp.getProvider();
-    }
-
-    public boolean setupChat() {
-        RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-        chat = rsp.getProvider();
-        return chat != null;
+        this.permission = rsp.getProvider();
     }
 }

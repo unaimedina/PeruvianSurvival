@@ -1,4 +1,4 @@
-package gg.voltic.hope.scenario.disabledScenarios;
+package gg.voltic.hope.scenario.scenarios;
 
 import gg.voltic.hope.Hope;
 import gg.voltic.hope.scenario.Scenario;
@@ -21,7 +21,7 @@ public class Backpacks extends Scenario {
       .get();
 
    public Backpacks() {
-      super("Backpacks", "Integrates backpacks connected to players' enderchests.", null);
+      super("Backpacks", "Integrates backpacks connected to players' enderchests.", null, Material.CHEST_MINECART);
       NamespacedKey backpackKey = new NamespacedKey(Hope.getInstance(), "backpack");
       ShapedRecipe backpackRecipe = new ShapedRecipe(backpackKey, this.backpack);
       backpackRecipe.shape("L L", "LCL", " D ");

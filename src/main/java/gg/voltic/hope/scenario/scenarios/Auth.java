@@ -1,4 +1,4 @@
-package gg.voltic.hope.scenario.disabledScenarios;
+package gg.voltic.hope.scenario.scenarios;
 
 import gg.voltic.hope.Hope;
 import gg.voltic.hope.scenario.Scenario;
@@ -7,6 +7,7 @@ import gg.voltic.hope.utils.FileConfig;
 import java.util.HashMap;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -16,7 +17,7 @@ public class Auth extends Scenario {
    ConfigCursor cursor = new ConfigCursor(this.getConfig(), "");
 
    public Auth() {
-      super("Auth", "Integrates an auth system using IPs and UUIDs.", new FileConfig(Hope.getInstance(), "auth.yml"));
+      super("Auth", "Integrates an auth system using IPs and UUIDs.", new FileConfig(Hope.getInstance(), "auth.yml"), Material.BOOK);
 
       for(String uuid : this.cursor.getKeys("uuids")) {
          this.auth.put(uuid, this.cursor.getString("uuids." + uuid));
