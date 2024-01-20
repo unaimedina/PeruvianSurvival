@@ -1,16 +1,17 @@
 package gg.voltic.hope.utils;
 
+import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 
 public class Common {
    public static int getExpToLevelUp(int level) {
@@ -187,6 +188,41 @@ public class Common {
       }
    }
 
+
+   public static int getPlayerKills(Player player) {
+      return player.getStatistic(Statistic.PLAYER_KILLS);
+   }
+
+   public static int getDeaths(Player player) {
+      return player.getStatistic(Statistic.DEATHS);
+   }
+
+   public static int getMobKills(Player player) {
+      return player.getStatistic(Statistic.MOB_KILLS);
+   }
+
+   public static String getPlayTime(Player player) {
+      long ticks = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
+
+      long hour = ((ticks / 20) / 60) / 60;
+      long minute = ticks / 1200 - hour * 60;
+
+      long fakeminute = ticks / 1200;
+      long seconds = ticks / 20 - fakeminute * 60;
+
+      return hour + ":" + minute + ":" + seconds;
+   }
+
+   public static int getPlayerHealth(Player player) {
+      return (int) player.getHealth() / 2;
+   }
+
+
+   public static String getMemory() {
+      Runtime runtime = Runtime.getRuntime();
+      return (runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "/" + runtime.totalMemory() / 1048576L;
+   }
+
    public static void clearTime(World world) {
       if (world.hasStorm()) {
          world.setStorm(false);
@@ -198,5 +234,13 @@ public class Common {
 
       long time = 24000L - world.getTime();
       world.setFullTime(time + world.getFullTime());
+   }
+
+   public static String translate(String string) {
+      return ChatColor.translateAlternateColorCodes('&', string);
+   }
+
+   public static List<String> translate(List<String> text) {
+      return text.stream().map(Common::translate).collect(Collectors.toList());
    }
 }

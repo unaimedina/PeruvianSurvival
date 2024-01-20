@@ -1,12 +1,13 @@
 package gg.voltic.hope.commands;
 
-import java.util.HashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.HashMap;
 
 public class PrivateMessageCommand implements CommandExecutor {
    private static final HashMap<Player, Player> lastMessage = new HashMap();

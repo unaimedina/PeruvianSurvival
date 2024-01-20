@@ -1,15 +1,11 @@
 package gg.voltic.hope.commands.admin;
 
-import gg.voltic.hope.Hope;
-import gg.voltic.hope.scenario.Scenario;
 import gg.voltic.hope.scenario.ScenarioMenu;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class ModuleManagerCommand implements CommandExecutor {
 

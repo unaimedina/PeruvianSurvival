@@ -1,8 +1,9 @@
 package gg.voltic.hope.utils;
 
-import java.util.List;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.List;
 
 public class InventorySave {
    private final Player player;

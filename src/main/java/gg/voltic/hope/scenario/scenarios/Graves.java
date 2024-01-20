@@ -2,31 +2,10 @@ package gg.voltic.hope.scenario.scenarios;
 
 import gg.voltic.hope.Hope;
 import gg.voltic.hope.scenario.Scenario;
-import gg.voltic.hope.utils.Common;
-import gg.voltic.hope.utils.ConfigCursor;
-import gg.voltic.hope.utils.FileConfig;
-import gg.voltic.hope.utils.InventorySave;
-import gg.voltic.hope.utils.ItemCreator;
-import gg.voltic.hope.utils.LocationUtil;
-import gg.voltic.hope.utils.TaskUtil;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameRule;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import gg.voltic.hope.utils.*;
+import org.bukkit.*;
 import org.bukkit.World.Environment;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.DoubleChest;
-import org.bukkit.block.Sign;
+import org.bukkit.block.*;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.type.Chest;
@@ -48,6 +27,9 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.DoubleChestInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Graves extends Scenario {
    private final ConfigCursor cursor;

@@ -3,20 +3,13 @@ package gg.voltic.hope;
 import gg.voltic.hope.commands.*;
 import gg.voltic.hope.commands.admin.ModuleManagerCommand;
 import gg.voltic.hope.listeners.MainFileListeners;
+import gg.voltic.hope.providers.ScoreboardProvider;
 import gg.voltic.hope.scenario.ScenarioManager;
-import gg.voltic.hope.scenario.ScenarioMenu;
-import gg.voltic.hope.utils.ConfigCursor;
 import gg.voltic.hope.utils.FileConfig;
-import gg.voltic.hope.utils.LocationUtil;
 import gg.voltic.hope.utils.MySQLConnector;
 import gg.voltic.hope.utils.menu.MenuListener;
-
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-
+import gg.voltic.hope.utils.scoreboard.Scoreboard;
+import gg.voltic.hope.utils.scoreboard.ScoreboardListener;
 import lombok.Getter;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
@@ -29,6 +22,12 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 @SuppressWarnings({"deprecation"})
 @Getter
 public class Hope extends JavaPlugin implements Listener {
@@ -40,20 +39,22 @@ public class Hope extends JavaPlugin implements Listener {
 
     private FileConfig homesFile;
     private FileConfig modulesFile;
+    private FileConfig playersFile;
 
     private ScenarioManager scenarioManager;
 
     private Connection connection;
-
     private Permission permission;
-
     private Chat chat;
+
+    private Scoreboard scoreboard;
 
     public void onEnable() {
         instance = this;
 
         this.homesFile = new FileConfig(this, "homes.yml");
         this.modulesFile = new FileConfig(this, "modules.yml");
+        this.playersFile = new FileConfig(this, "players.yml");
 
         this.scenarioManager = new ScenarioManager();
 
@@ -63,7 +64,15 @@ public class Hope extends JavaPlugin implements Listener {
         this.setupChat();
         this.setupPermissions();
 
+        this.scoreboard = new Scoreboard(this, new ScoreboardProvider());
+        this.scoreboard.setTicks(2);
+
         this.connection = new MySQLConnector().getConnection();
+    }
+
+    @Override
+    public void onDisable() {
+        this.scoreboard.getBoards().clear();
     }
 
     private void registerListeners() {

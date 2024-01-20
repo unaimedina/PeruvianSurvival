@@ -2,30 +2,12 @@ package gg.voltic.hope.scenario.scenarios;
 
 import gg.voltic.hope.Hope;
 import gg.voltic.hope.scenario.Scenario;
-import gg.voltic.hope.utils.Common;
-import gg.voltic.hope.utils.ConfigCursor;
-import gg.voltic.hope.utils.FileConfig;
-import gg.voltic.hope.utils.ItemCreator;
-import gg.voltic.hope.utils.LocationUtil;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
+import gg.voltic.hope.utils.*;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockExplodeEvent;
-import org.bukkit.event.block.BlockPhysicsEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -34,6 +16,10 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Mines extends Scenario {
    private final List<Mine> mineList = new ArrayList<>();

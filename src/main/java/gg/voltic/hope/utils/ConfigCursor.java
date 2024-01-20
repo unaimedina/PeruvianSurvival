@@ -1,10 +1,11 @@
 package gg.voltic.hope.utils;
 
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
 
 public class ConfigCursor {
    private final FileConfig fileConfig;

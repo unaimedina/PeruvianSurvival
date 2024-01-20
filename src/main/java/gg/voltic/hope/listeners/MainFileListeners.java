@@ -1,8 +1,11 @@
 package gg.voltic.hope.listeners;
 
 import gg.voltic.hope.Hope;
+import gg.voltic.hope.menus.impl.Configurations;
+import gg.voltic.hope.providers.ScoreboardProvider;
 import gg.voltic.hope.utils.Common;
-import net.milkbowl.vault.permission.Permission;
+import gg.voltic.hope.utils.ConfigCursor;
+import gg.voltic.hope.utils.FileConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -11,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.inventory.ItemStack;
@@ -27,6 +29,18 @@ public class MainFileListeners implements Listener {
             int random = (int) (Math.random() * 40.0) + 16;
             player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, random));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2[>] &a¡Bienvenido al survival! &7Has recibido &e" + random + " &7filetes."));
+        }
+
+        FileConfig playersConfig = Hope.getInstance().getPlayersFile();
+
+        if (playersConfig.getConfig().get(String.valueOf(player.getUniqueId())) == null) {
+            ConfigCursor configCursor = new ConfigCursor(playersConfig, "PLAYERS." + player.getUniqueId());
+
+            for (Configurations configuration : Configurations.values()) {
+                configCursor.set(configuration.getUuid(), true);
+            }
+
+            configCursor.save();
         }
 
         String prefix = Hope.getInstance().getChat().getGroupPrefix(player.getWorld(), Hope.getInstance().getPermission().getPrimaryGroup(player)) + player.getName();
@@ -69,7 +83,7 @@ public class MainFileListeners implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        String prefix = Hope.getInstance().getChat().getGroupPrefix(player.getWorld(), Hope.getInstance().getPermission().getPrimaryGroup(player)) + player.getName();
+        String prefix = Hope.getInstance().getChat().getGroupPrefix(player.getWorld(), Hope.getInstance().getPermission().getPrimaryGroup(player));
         String formatStr = prefix + player.getName() + "&7: &f";
 
         player.setPlayerListName(ChatColor.translateAlternateColorCodes('&', prefix + player.getName()));

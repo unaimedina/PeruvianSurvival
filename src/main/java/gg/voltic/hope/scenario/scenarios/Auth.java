@@ -4,13 +4,13 @@ import gg.voltic.hope.Hope;
 import gg.voltic.hope.scenario.Scenario;
 import gg.voltic.hope.utils.ConfigCursor;
 import gg.voltic.hope.utils.FileConfig;
-import java.util.HashMap;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
+
+import java.util.HashMap;
 
 public class Auth extends Scenario {
    private final HashMap<String, String> auth = new HashMap<>();

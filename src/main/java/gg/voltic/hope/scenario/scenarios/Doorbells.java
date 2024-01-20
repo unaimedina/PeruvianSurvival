@@ -3,20 +3,8 @@ package gg.voltic.hope.scenario.scenarios;
 import com.destroystokyo.paper.event.block.BlockDestroyEvent;
 import gg.voltic.hope.Hope;
 import gg.voltic.hope.scenario.Scenario;
-import gg.voltic.hope.utils.ConfigCursor;
-import gg.voltic.hope.utils.Cooldown;
-import gg.voltic.hope.utils.FileConfig;
-import gg.voltic.hope.utils.ItemCreator;
-import gg.voltic.hope.utils.LocationUtil;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
+import gg.voltic.hope.utils.*;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,6 +12,10 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ShapelessRecipe;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Doorbells extends Scenario {
    private final List<Material> doorbells = new ArrayList();

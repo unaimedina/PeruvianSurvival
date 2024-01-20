@@ -3,8 +3,6 @@ package gg.voltic.hope.scenario.scenarios;
 import gg.voltic.hope.Hope;
 import gg.voltic.hope.scenario.Scenario;
 import gg.voltic.hope.utils.ItemCreator;
-import java.util.Collections;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -13,6 +11,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
+
+import java.util.Collections;
 
 public class Backpacks extends Scenario {
    private final ItemStack backpack = new ItemCreator(Material.CHEST_MINECART)
