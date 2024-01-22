@@ -1,5 +1,7 @@
 package gg.voltic.hope;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import gg.voltic.hope.commands.*;
 import gg.voltic.hope.commands.admin.ModuleManagerCommand;
 import gg.voltic.hope.listeners.MainFileListeners;
@@ -40,8 +42,10 @@ public class Hope extends JavaPlugin implements Listener {
     private FileConfig homesFile;
     private FileConfig modulesFile;
     private FileConfig playersFile;
+    private FileConfig elevatorsFile;
 
     private ScenarioManager scenarioManager;
+    private ProtocolManager protocolManager;
 
     private Connection connection;
     private Permission permission;
@@ -55,8 +59,10 @@ public class Hope extends JavaPlugin implements Listener {
         this.homesFile = new FileConfig(this, "homes.yml");
         this.modulesFile = new FileConfig(this, "modules.yml");
         this.playersFile = new FileConfig(this, "players.yml");
+        this.elevatorsFile = new FileConfig(this, "elevators.yml");
 
         this.scenarioManager = new ScenarioManager();
+        this.protocolManager = ProtocolLibrary.getProtocolManager();
 
         this.registerListeners();
         this.loadCommands();
@@ -96,6 +102,7 @@ public class Hope extends JavaPlugin implements Listener {
         Objects.requireNonNull(this.getCommand("mlg")).setExecutor(new MlgCommand());
         Objects.requireNonNull(this.getCommand("nick")).setExecutor(new ChangeNameCommands());
         Objects.requireNonNull(this.getCommand("modules")).setExecutor(new ModuleManagerCommand());
+        Objects.requireNonNull(this.getCommand("settings")).setExecutor(new SettingsCommand());
     }
 
     private void loadDisabledCommands() {

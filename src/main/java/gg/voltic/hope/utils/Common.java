@@ -80,6 +80,16 @@ public class Common {
       return new Random().nextInt(max);
    }
 
+   public static String elevatorDirection(Location location) {
+
+      if (getLowestElevatorBlock(location) != null) {
+         return "down";
+      } else if (getHighestElevatorBock(location) != null) {
+         return "up";
+      }
+      return null;
+   }
+
    public static Location getHighestBock(Location location, Location playerLocation) {
       for(double i = location.getY() + 2.0; i <= 319.0; ++i) {
          Location loc = new Location(
@@ -100,28 +110,66 @@ public class Common {
       return playerLocation;
    }
 
-   public static List<String> clearList(List<String> list) {
-      return list.stream().map(s -> ChatColor.stripColor(s).replaceAll(" ", "")).collect(Collectors.toList());
+   public static Location getHighestElevatorBock(Location location) {
+      for(double i = location.getY() + 2.0; i <= 319.0; ++i) {
+         Location loc = new Location(
+            location.getWorld(),
+            (double)Math.round(location.getX()),
+            i,
+            (double)Math.round(location.getZ())
+         );
+         if (!loc.getBlock().getType().isOccluding()
+            && !loc.clone().add(0.0, 1.0, 0.0).getBlock().getType().isOccluding()
+            && loc.clone().add(0.0, -1.0, 0.0).getBlock().getType().isSolid()
+            && loc.clone().add(0.0, -1.0, 0.0).getBlock().getType().equals(Material.TARGET)) {
+            return loc;
+         }
+      }
+
+      return null;
    }
 
    public static Location getLowestBlock(Location location, Location playerLocation) {
       for(double i = location.getY() - 2.0; i > -64.0; --i) {
          Location loc = new Location(
-            location.getWorld(),
-            (double)Math.round(location.getX()),
-            i,
-            (double)Math.round(location.getZ()),
-            playerLocation.getYaw(),
-            playerLocation.getPitch()
+                 location.getWorld(),
+                 (double)Math.round(location.getX()),
+                 i,
+                 (double)Math.round(location.getZ()),
+                 playerLocation.getYaw(),
+                 playerLocation.getPitch()
          );
          if (!loc.getBlock().getType().isOccluding()
-            && !loc.clone().add(0.0, 1.0, 0.0).getBlock().getType().isOccluding()
-            && loc.clone().add(0.0, -1.0, 0.0).getBlock().getType().isSolid()) {
+                 && !loc.clone().add(0.0, 1.0, 0.0).getBlock().getType().isOccluding()
+                 && loc.clone().add(0.0, -1.0, 0.0).getBlock().getType().isSolid()) {
             return loc;
          }
       }
 
       return playerLocation;
+   }
+
+   public static Location getLowestElevatorBlock(Location location) {
+      for(double i = location.getY() - 2.0; i > -64.0; --i) {
+         Location loc = new Location(
+                 location.getWorld(),
+                 (double)Math.round(location.getX()),
+                 i,
+                 (double)Math.round(location.getZ())
+         );
+         if (!loc.getBlock().getType().isOccluding()
+                 && !loc.clone().add(0.0, 1.0, 0.0).getBlock().getType().isOccluding()
+                 && loc.clone().add(0.0, -1.0, 0.0).getBlock().getType().isSolid()
+                 && loc.clone().add(0.0, -1.0, 0.0).getBlock().getType().equals(Material.TARGET)) {
+            return loc;
+         }
+      }
+
+      return null;
+   }
+
+   public static List<String> clearList(List<String> list) {
+      return list.stream().map(s -> ChatColor.stripColor(s).replaceAll(" ", "")).collect(Collectors.toList());
    }
 
    public static String getTime(int seconds) {

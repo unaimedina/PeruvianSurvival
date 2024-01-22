@@ -33,7 +33,7 @@ public class MainFileListeners implements Listener {
 
         FileConfig playersConfig = Hope.getInstance().getPlayersFile();
 
-        if (playersConfig.getConfig().get(String.valueOf(player.getUniqueId())) == null) {
+        if (playersConfig.getConfig().get("PLAYERS." + player.getUniqueId()) == null) {
             ConfigCursor configCursor = new ConfigCursor(playersConfig, "PLAYERS." + player.getUniqueId());
 
             for (Configurations configuration : Configurations.values()) {
@@ -43,7 +43,7 @@ public class MainFileListeners implements Listener {
             configCursor.save();
         }
 
-        String prefix = Hope.getInstance().getChat().getGroupPrefix(player.getWorld(), Hope.getInstance().getPermission().getPrimaryGroup(player)) + player.getName();
+        String prefix = Hope.getInstance().getChat().getGroupPrefix(player.getWorld(), Hope.getInstance().getPermission().getPrimaryGroup(player));
 
         player.setPlayerListName(ChatColor.translateAlternateColorCodes('&', prefix + player.getName()));
         event.setJoinMessage(ChatColor.translateAlternateColorCodes('&', "&a[+] &7El jugador &a" + player.getName() + " &7ha entrado al survival."));

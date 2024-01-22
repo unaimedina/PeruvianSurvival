@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 public enum Configurations {
-    SCOREBOARD(Common.translate("Scoreboard Visibility"), Common.translate(Arrays.asList("", "")), Material.CLOCK, ConfigurationTypes.BOOLEAN, "board");
+    SCOREBOARD("Scoreboard Visibility", Arrays.asList(""), Material.CLOCK, ConfigurationTypes.BOOLEAN, "board");
 
     String title;
     List<String> description;
