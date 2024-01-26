@@ -1,6 +1,8 @@
 package gg.voltic.hope.menus;
 
 import gg.voltic.hope.Hope;
+import gg.voltic.hope.menus.impl.Configurations;
+import gg.voltic.hope.utils.ItemCreator;
 import gg.voltic.hope.utils.menu.type.ChestMenu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -16,7 +18,7 @@ public class ConfigurationMenu extends ChestMenu<Hope> {
     private void update() {
         this.inventory.clear();
 
-        /*int i = 0;
+        int i = 0;
         for (Configurations configuration : Configurations.values()) {
             this.inventory.setItem(i, new ItemCreator(configuration.getItem())
                     .setName(configuration.getTitle())
@@ -24,7 +26,7 @@ public class ConfigurationMenu extends ChestMenu<Hope> {
                     .get()
             );
             i++;
-        }*/
+        }
     }
 
     @Override

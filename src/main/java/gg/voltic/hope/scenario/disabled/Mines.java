@@ -1,4 +1,4 @@
-package gg.voltic.hope.scenario.scenarios;
+package gg.voltic.hope.scenario.disabled;
 
 import gg.voltic.hope.Hope;
 import gg.voltic.hope.scenario.Scenario;
