@@ -38,7 +38,7 @@ public class ConfigurationMenu extends ChestMenu<Hope> {
                     .setName(Hope.getInstance().getPlayersFile().getConfig()
                                     .getBoolean("PLAYERS." + this.player.getUniqueId() + "." + configuration.getUuid()) == true ?
                                         ChatColor.GREEN + configuration.getTitle() : ChatColor.RED + configuration.getTitle())
-                    .setLore(configuration.getDescription())
+                    .hideEnchants()
                     .get()
             );
             i++;

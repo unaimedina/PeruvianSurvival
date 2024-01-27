@@ -81,7 +81,6 @@ public class Common {
    }
 
    public static String elevatorDirection(Location location) {
-
       if (getLowestElevatorBlock(location) != null) {
          return "down";
       } else if (getHighestElevatorBock(location) != null) {
@@ -94,9 +93,9 @@ public class Common {
       for(double i = location.getY() + 2.0; i <= 319.0; ++i) {
          Location loc = new Location(
             location.getWorld(),
-            (double)Math.round(location.getX()),
+            location.getBlockX() + 0.5,
             i,
-            (double)Math.round(location.getZ()),
+            location.getBlockZ() + 0.5,
             playerLocation.getYaw(),
             playerLocation.getPitch()
          );
@@ -114,9 +113,9 @@ public class Common {
       for(double i = location.getY() + 2.0; i <= 319.0; ++i) {
          Location loc = new Location(
             location.getWorld(),
-            (double)Math.round(location.getX()),
+            location.getBlockX() + 0.5,
             i,
-            (double)Math.round(location.getZ())
+            location.getBlockZ() + 0.5
          );
          if (!loc.getBlock().getType().isOccluding()
             && !loc.clone().add(0.0, 1.0, 0.0).getBlock().getType().isOccluding()
@@ -133,9 +132,9 @@ public class Common {
       for(double i = location.getY() - 2.0; i > -64.0; --i) {
          Location loc = new Location(
                  location.getWorld(),
-                 (double)Math.round(location.getX()),
+                 location.getBlockX() + 0.5,
                  i,
-                 (double)Math.round(location.getZ()),
+                 location.getBlockZ() + 0.5,
                  playerLocation.getYaw(),
                  playerLocation.getPitch()
          );
@@ -153,9 +152,9 @@ public class Common {
       for(double i = location.getY() - 2.0; i > -64.0; --i) {
          Location loc = new Location(
                  location.getWorld(),
-                 (double)Math.round(location.getX()),
+                 location.getBlockX() + 0.5,
                  i,
-                 (double)Math.round(location.getZ())
+                 location.getBlockZ() + 0.5
          );
          if (!loc.getBlock().getType().isOccluding()
                  && !loc.clone().add(0.0, 1.0, 0.0).getBlock().getType().isOccluding()

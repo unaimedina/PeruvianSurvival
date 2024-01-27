@@ -8,6 +8,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import com.google.common.collect.Lists;
 import gg.voltic.hope.Hope;
 import gg.voltic.hope.scenario.Scenario;
@@ -68,17 +69,36 @@ public class Elevators extends Scenario {
 
         if (blockBelow.getType() != Material.AIR && section.getStringList("locations").contains(LocationUtil.serialize(blockBelow.getLocation()))) {
             switch (Objects.requireNonNull(Common.elevatorDirection(location))) {
-                case "up" -> {
-                    TaskUtil.runLater(() -> {
-                        player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_BREAK, 1.0f, 1.0f);
-                    },5);
-                    player.teleport(Common.getHighestBock(location, player.getLocation()));
-                }
                 case "down" -> {
                     TaskUtil.runLater(() -> {
                         player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_BREAK, 1.0f, 1.0f);
                     },5);
                     player.teleport(Common.getLowestBlock(location, player.getLocation()));
+                }
+                default -> {
+                    player.sendMessage(Common.translate("&cLa dirección no es válida, direcciones válidas: up, down"));
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onJump(PlayerJumpEvent event) {
+        Player player = event.getPlayer();
+        Block blockBelow = player.getLocation().subtract(0, 1, 0).getBlock();
+        Location location = blockBelow.getLocation();
+
+        FileConfig elevatorsConfig = Hope.getInstance().getElevatorsFile();
+        ConfigurationSection section = elevatorsConfig.getConfig().getConfigurationSection("ELEVATORS");
+        assert section != null;
+
+        if (blockBelow.getType() != Material.AIR && section.getStringList("locations").contains(LocationUtil.serialize(blockBelow.getLocation()))) {
+            switch (Objects.requireNonNull(Common.elevatorDirection(location))) {
+                case "up" -> {
+                    TaskUtil.runLater(() -> {
+                        player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_BREAK, 1.0f, 1.0f);
+                    },5);
+                    player.teleport(Common.getHighestBock(location, player.getLocation()));
                 }
                 default -> {
                     player.sendMessage(Common.translate("&cLa dirección no es válida, direcciones válidas: up, down"));
